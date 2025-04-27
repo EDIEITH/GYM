@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IFIT Gym - Unleash Your Beast</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Animate On Scroll CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to bottom, #1a1a1a, #000);
+            color: #eaeaea;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1599058917212-d750089bc07e') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            animation: slideIn 1.5s ease-out;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            animation: slideIn 2s ease-out;
+        }
+
+        header .cta-btn {
+            animation: slideIn 2.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Buttons */
+        .cta-btn {
+            background-color: crimson;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .cta-btn:hover {
+            background-color: #a10000;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+        }
+
+        /* Cards */
+        .card {
+            background-color: #111 !important;
+            border: 1px solid #333;
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
+        }
+
+        .card-light {
+            background-color: #fff !important;
+            color: #000;
+        }
+
+        .card-dark {
+            background-color: #111 !important;
+            color: #fff;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: crimson;
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        /* Gallery Images */
+        .gallery-img {
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            border-radius: 12px;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* Form */
+        .form-control {
+            background-color: #1a1a1a;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+
+        .form-control::placeholder {
+            color: #888;
+        }
+
+        .form-control:focus {
+            border-color: crimson;
+            box-shadow: 0 0 0 0.2rem rgba(220, 20, 60, 0.25);
+        }
+
+        /* Canvas */
+        canvas#gymCanvas {
+            height: 400px;
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        /* Blockquote */
+        blockquote {
+            font-style: italic;
+            border-left: 4px solid crimson;
+            padding-left: 1.5rem;
+            color: #bbb;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #999;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            padding: 5rem 0;
+        }
+
+        /* Keyframes */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+            /* Header */
+    header {
+        position: relative;
+        background: url('https://images.unsplash.com/photo-1599058917212-d750089bc07e') no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+    }
+
+    header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1;
+    }
+
+    header .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    header h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        animation: slideIn 1.5s ease-out;
+    }
+
+    header p {
+        font-size: 1.5rem;
+        animation: slideIn 2s ease-out;
+    }
+
+    header .cta-btn {
+        animation: slideIn 2.5s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Buttons */
+    .cta-btn {
+        background-color: crimson;
+        border: none;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        border-radius: 50px;
+    }
+
+    .cta-btn:hover {
+        background-color: #a10000;
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+    }
+
+    /* Cards */
+    .card {
+        background-color: #111 !important;
+        border: 1px solid #333;
+        border-radius: 16px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
+    }
+
+    .card-light {
+        background-color: #fff !important;
+        color: #000;
+    }
+
+    .card-dark {
+        background-color: #111 !important;
+        color: #fff;
+    }
+
+    /* Section Titles */
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: crimson;
+        text-align: center;
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+    }
+
+    /* Gallery Images */
+    .gallery-img {
+        transition: transform 0.4s ease, opacity 0.4s ease;
+        border-radius: 12px;
+    }
+
+    .gallery-img:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+
+    /* Form */
+    .form-control {
+        background-color: #1a1a1a;
+        color: white;
+        border: 1px solid #444;
+        border-radius: 8px;
+    }
+
+    .form-control::placeholder {
+        color: #888;
+    }
+
+    .form-control:focus {
+        border-color: crimson;
+        box-shadow: 0 0 0 0.2rem rgba(220, 20, 60, 0.25);
+    }
+
+    /* Canvas */
+    canvas#gymCanvas {
+        height: 400px;
+        width: 100%;
+        display: block;
+        border-radius: 12px;
+        margin: 2rem 0;
+    }
+
+    /* Blockquote */
+    blockquote {
+        font-style: italic;
+        border-left: 4px solid crimson;
+        padding-left: 1.5rem;
+        color: #bbb;
+    }
+
+    /* Footer */
+    footer {
+        background: #000;
+        color: #999;
+        padding: 2rem 0;
+        font-size: 0.9rem;
+    }
+
+    /* Parallax Effect */
+    .parallax {
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        padding: 5rem 0;
+    }
+
+    /* Keyframes */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+
+    .toggle-button {
+            background-color: crimson;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .toggle-button:hover {
+            background-color: #a10000;
+            transform: scale(1.05);
+        }
+
+        .schedule-table {
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .schedule-table th, 
+        .schedule-table td {
+            border: 1px solid #333;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .schedule-table th {
+            background-color: crimson;
+            color: white;
+            font-weight: 700;
+        }
+
+        .schedule-table td {
+            background-color: #111;
+            color: #ccc;
+        }
+
+        .schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.schedule-table th, 
+.schedule-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Table */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Button Styling */
+.toggle-button {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .schedule-table th, .schedule-table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .section-title {
+    font-size: 1.5rem;
+  }
+  .toggle-button {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+  }
+}
+
+.bi-instagram {
+    color: #e4405f;
+    transition: transform 0.3s ease;
+}
+
+.bi-instagram:hover {
+    transform: scale(1.2);
+}
+</style>
+    </head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>IFIT GYM<br>Unleash Your Beast</h1>
+            <p>Train Hard. Stay Strong. Become Unstoppable.</p>
+            <a href="#join" class="btn cta-btn text-white mt-4">Join Now</a>
+        </div>
+    </header>
+    <br><br>
+
+    <!-- Welcome Section -->
+    <section class="container mb-5" data-aos="fade-up">
+        <div class="card card-light p-5">
+            <h2 class="section-title">Unleash Your Power</h2>
+            <p class="lead text-center">
+                Step into a world of strength, motivation, and achievement. IFIT GYM offers state-of-the-art facilities, expert trainers, and a community that pushes you to be your best.
+            </p>
+            <div class="text-center">
+                <a href="#join" class="btn cta-btn text-white px-5 py-3 rounded-pill mt-3 pulse">Join Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Training Section -->
+    <section class="container mb-5" data-aos="fade-right">
+        <div class="card card-dark">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-6">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48" class="img-fluid rounded-start" alt="Training Session" />
+                </div>
+                <div class="col-md-6 p-5">
+                    <h4 class="card-title">About Our Training</h4>
+                    <p class="card-text">
+                        From beginners to elite athletes, our programs are designed to challenge and inspire. Choose from personal training, group classes, weightlifting, HIIT, yoga, and more, all led by certified trainers.
+                    </p>
+                    <a href="#join" class="btn cta-btn text-white">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Trainers Section -->
+    <section class="container mb-5" data-aos="fade-up">
+        <h2 class="section-title">Meet Our Trainer</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+             
+            </div>
+            <div class="col-md-4">
+                <div class="card card-dark text-center">
+                    <img src="gym8.jpg" class="img-fluid rounded-top" alt="Trainer 1" />
+                    <div class="card-body">
+                        <h5 class="card-title">Lekhraj Gurjar</h5>
+                        <p class="card-text">Certified HIIT & Yoga Instructor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+             
+            </div>
+
+            <!-- <div class="col-md-4">
+                <div class="card card-dark text-center">
+                    <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e" class="img-fluid rounded-top" alt="Trainer 3" />
+                    <div class="card-body">
+                        <h5 class="card-title">Lisa T.</h5>
+                        <p class="card-text">Personal Trainer & Nutritionist</p>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </section>
+        <!-- Membership Fees Section -->
+        <section class="container mb-5" data-aos="fade-up">
+            <h2 class="section-title">Membership Plans</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card text-white bg-secondary h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">💪 Basic Plan</h5>
+                            <p class="card-text">Access to gym facilities<br><strong>800/month</strong></p>
+                            <a href="#join" class="btn cta-btn text-white">Choose Plan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-danger h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">🔥 Pro Plan</h5>
+                            <p class="card-text">Includes personal training<br><strong>2000/month</strong></p>
+                            <a href="#join" class="btn cta-btn text-white">Choose Plan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-warning h-100 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">🏆 Elite Plan</h5>
+                            <p class="card-text">All classes + personal coach<br><strong>4000/month</strong></p>
+                            <a href="#join" class="btn cta-btn text-white">Choose Plan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Class Schedule Section -->
+        <section class="container mb-5" data-aos="fade-up">
+            <h2 class="section-title text-center">Class Schedule</h2>
+            <div class="mb-3 text-center">
+              <button class="toggle-button" onclick="toggleSchedule()">Toggle Weekly/Daily View</button>
+            </div>
+            
+            <div id="scheduleContainer" class="schedule-wrapper">
+              <!-- Weekly Schedule -->
+              <div class="table-responsive">
+                <table id="weeklySchedule" class="schedule-table w-100">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Monday</th>
+                      <th>Tuesday</th>
+                      <th>Wednesday</th>
+                      <th>Thursday</th>
+                      <th>Friday</th>
+                      <th>Saturday</th>
+                      <th>Sunday</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>6:00 AM</td>
+                      <td>Yoga</td>
+                      <td>HIIT</td>
+                      <td>Spin</td>
+                      <td>Yoga</td>
+                      <td>Bootcamp</td>
+                      <td>Zumba</td>
+                      <td>Rest</td>
+                    </tr>
+                    <tr>
+                      <td>12:00 PM</td>
+                      <td>Strength</td>
+                      <td>Boxing</td>
+                      <td>Pilates</td>
+                      <td>Strength</td>
+                      <td>HIIT</td>
+                      <td>Spin</td>
+                      <td>Rest</td>
+                    </tr>
+                    <tr>
+                      <td>6:00 PM</td>
+                      <td>HIIT</td>
+                      <td>Zumba</td>
+                      <td>Strength</td>
+                      <td>Boxing</td>
+                      <td>Yoga</td>
+                      <td>Pilates</td>
+                      <td>Rest</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+          
+              <!-- Daily Schedule (Hidden by Default) -->
+              <div class="table-responsive" style="display: none;" id="dailyScheduleWrapper">
+                <table id="dailySchedule" class="schedule-table w-100">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Class</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dailyScheduleBody">
+                    <!-- Populated by JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+        <!-- Reviews Section -->
+        <section class="container mb-5" data-aos="fade-up">
+            <h2 class="section-title">What Our Members Say</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card card-dark h-100">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-4">
+                                <img src="member.jpg" class="img-fluid rounded-start" alt="Happy Member" />
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <blockquote class="card-text">
+                                        "IFIT GYM completely changed my fitness game. The trainers are incredibly motivating!"
+                                    </blockquote>
+                                    <footer class="blockquote-footer text-white-50">Bhavya .K</footer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-dark h-100">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-4">
+                                <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883" class="img-fluid rounded-start" alt="Happy Member" />
+                            </div>
+                            <div class="col-8">
+                                <div class="card-body">
+                                    <blockquote class="card-text">
+                                        "Clean, professional, and fun! I actually look forward to going to the gym now."
+                                    </blockquote>
+                                    <footer class="blockquote-footer text-white-50">Jake M.</footer>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gym Gallery Section -->
+        <section class="container py-5" data-aos="fade-up">
+            <h2 class="section-title">Our Gym in Action</h2>
+            <div class="row g-4">
+                <div class="col-sm-6 col-md-4">
+                    <div class="card overflow-hidden border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48" alt="Gym Equipment" class="img-fluid gallery-img" />
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card overflow-hidden border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd" alt="Fitness Training" class="img-fluid gallery-img" />
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card overflow-hidden border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1" alt="Group Workout" class="img-fluid gallery-img" />
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card overflow-hidden border-0 shadow-sm">
+                        <img src="gym4.webp" alt="Trainers" class="img-fluid gallery-img" />
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card overflow-hidden border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1" alt="Workout Zone" class="img-fluid gallery-img" />
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card overflow-hidden border-0 shadow-sm">
+                        <img src="gym5.avif" alt="Strength Area" class="img-fluid gallery-img" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gym Owner Section -->
+        <section class="container mb-5" data-aos="fade-left">
+            <div class="card card-dark p-5">
+                <h2 class="section-title">Meet the Owner</h2>
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-4 mb-md-0">
+                        <img src="gym9.jpg" alt="Gym Owner" class="img-fluid shadow rounded-circle" />
+                    </div>
+                    <div class="col-md-8">
+                        <p class="fs-5">
+                            <strong>Lekhraj Gurjar</strong>, founder of IFIT GYM, is a certified fitness trainer with over 15 years of experience in transforming lives. His mission is to build a motivating and results-driven space for everyone.
+                        </p>
+                        <blockquote>
+                            “My goal is to help people become the strongest version of themselves — physically and mentally.”
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get in Touch Section -->
+        <section class="container mb-5" data-aos="fade-right" id="join">
+            <div class="card card-dark p-5">
+                <h2 class="section-title">Get in Touch</h2>
+                <div class="row g-4">
+                    <!-- Contact Info -->
+                    <div class="col-md-5">
+                        <div class="bg-dark p-4 rounded-3 shadow">
+                            <p><strong>📍 Address:</strong><br />Near lahriya sweets,Bhagat ki kothi, Jodhpur, India</p>
+                            <p><strong>📞 Phone:</strong><br /><a href="tel:+91 8114414693" class="text-decoration-none text-white">+91 8114414693</a></p>
+                            <p><strong>📧 Email:</strong><br /><a href="mailto:contact@ifitgym.in" class="text-decoration-none text-white">contact@ifitgym.in</a></p>
+                            <a href="https://www.instagram.com/ifit_jodhpur" 
+                            class="text-decoration-none text-white" 
+                            target="_blank">
+                             <i class="bi bi-instagram me-2"></i>@ifit_jodhpur
+                         </a>
+                            <hr class="text-secondary" />
+                            <p class="text-muted small">Our team will get back to you within 24 hours.</p>
+                        </div>
+                        
+                    </div>
+                    <!-- Contact Form -->
+                    <div class="col-md-7">
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label class="form-label text-white">Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your name" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-white">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="you@example.com" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label text-white">Message</label>
+                                <textarea class="form-control" id="message" rows="4" placeholder="Write your message here..." required></textarea>
+                            </div>
+                            <button class="btn cta-btn px-5 py-2 text-white rounded-pill" type="submit">Send Message</button>
+                        </form>
+                        <div id="formFeedback" class="mt-3" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center">
+            <div class="container">
+                <div class="card bg-dark border-light">
+                    <div class="card-body text-secondary">
+                        © 2025 IFIT GYM. All rights reserved.
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+        <script>
+            // Three.js Dumbbell Animation
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 400, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("gymCanvas"), antialias: true });
+            renderer.setSize(window.innerWidth, 400);
+
+            // Create Dumbbell (Simplified)
+            const barGeometry = new THREE.CylinderGeometry(0.1, 0.1, 2, 32);
+            const weightGeometry = new THREE.CylinderGeometry(0.5, 0.5, 0.3, 32);
+            const material = new THREE.MeshStandardMaterial({ color: 0x333333, metalness: 0.8, roughness: 0.2 });
+
+            const bar = new THREE.Mesh(barGeometry, material);
+            const weight1 = new THREE.Mesh(weightGeometry, material);
+            const weight2 = new THREE.Mesh(weightGeometry, material);
+            const weight3 = new THREE.Mesh(weightGeometry, material);
+            const weight4 = new THREE.Mesh(weightGeometry, material);
+
+            weight1.position.set(-0.8, 0, 0);
+            weight2.position.set(-0.5, 0, 0);
+            weight3.position.set(0.5, 0, 0);
+            weight4.position.set(0.8, 0, 0);
+
+            bar.rotation.z = Math.PI / 2;
+            weight1.rotation.z = Math.PI / 2;
+            weight2.rotation.z = Math.PI / 2;
+            weight3.rotation.z = Math.PI / 2;
+            weight4.rotation.z = Math.PI / 2;
+
+            const dumbbell = new THREE.Group();
+            dumbbell.add(bar, weight1, weight2, weight3, weight4);
+            scene.add(dumbbell);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.position.set(5, 5, 5);
+            scene.add(ambientLight, pointLight);
+
+            camera.position.z = 3;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                dumbbell.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener("resize", () => {
+                camera.aspect = window.innerWidth / 400;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, 400);
+            });
+        </script>
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+        </script>
+        <script>
+            // Form Submission Feedback
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const feedback = document.getElementById('formFeedback');
+                feedback.style.display = 'block';
+                feedback.className = 'alert alert-success';
+                feedback.textContent = 'Thank you for your message! We will get back to you soon.';
+                this.reset();
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                }, 5000);
+            });
+
+            // Schedule Toggle
+            function toggleSchedule() {
+                const weekly = document.getElementById('weeklySchedule');
+                const daily = document.getElementById('dailySchedule');
+                const dailyBody = document.getElementById('dailyScheduleBody');
+                const today = new Date().getDay();
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const scheduleData = [
+                    { time: '6:00 AM', classes: ['Yoga', 'HIIT', 'Spin', 'Yoga', 'Bootcamp', 'Zumba', 'Rest'] },
+                    { time: '12:00 PM', classes: ['Strength', 'Boxing', 'Pilates', 'Strength', 'HIIT', 'Spin', 'Rest'] },
+                    { time: '6:00 PM', classes: ['HIIT', 'Zumba', 'Strength', 'Boxing', 'Yoga', 'Pilates', 'Rest'] }
+                ];
+
+                if (weekly.style.display !== 'none') {
+                    weekly.style.display = 'none';
+                    daily.style.display = 'table';
+                    dailyBody.innerHTML = '';
+                    scheduleData.forEach(row => {
+                        const tr = document.createElement('tr');
+                        const timeTd = document.createElement('td');
+                        const classTd = document.createElement('td');
+                        timeTd.textContent = row.time;
+                        classTd.textContent = row.classes[today];
+                        tr.appendChild(timeTd);
+                        tr.appendChild(classTd);
+                        dailyBody.appendChild(tr);
+                    });
+                } else {
+                    weekly.style.display = 'table';
+                    daily.style.display = 'none';
+                }
+            }
+        </script>
+    </body>
+</html>
